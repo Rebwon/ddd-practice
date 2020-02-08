@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    properties.hibernate:
+      hbm2ddl.auto: update
+      format_sql: true
+    showSql: true
+    generate-ddl: true
+  h2:
+    console:
+      enable: true
