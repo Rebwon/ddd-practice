@@ -74,6 +74,7 @@ class MemberTest {
 
         dbMember.getPosts().clear();
 
+        memberRepository.delete(dbMember);
         List<Posts> postsList = postsRepository.findAll();
 
         // then
