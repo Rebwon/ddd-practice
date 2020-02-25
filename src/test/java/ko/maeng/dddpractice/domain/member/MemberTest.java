@@ -1,11 +1,18 @@
 package ko.maeng.dddpractice.domain.member;
 
+import ko.maeng.dddpractice.domain.article.Category;
+import ko.maeng.dddpractice.domain.article.Posts;
+import ko.maeng.dddpractice.domain.article.PostsRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -13,12 +20,40 @@ class MemberTest {
     @Autowired
     MemberRepository memberRepository;
 
+    @Autowired
+    PostsRepository postsRepository;
+
+    @Autowired
+    EntityManager em;
+
+    @BeforeEach
+    void setup() {
+        // given
+        Member member = Member.builder()
+                .name("김철수")
+                .email(new Email("chulsu@naver.com"))
+                .password("1234")
+                .build();
+
+        List<Posts> posts = asList(
+                Posts.builder().title("TDD").description("TDD의 중요성").category(new Category("TDD")).build(),
+                Posts.builder().title("JAVA").description("JAVA의 중요성").category(new Category("JAVA")).build(),
+                Posts.builder().title("AWS").description("AWS의 중요성").category(new Category("AWS")).build());
+
+        member.setPosts(posts);
+
+        memberRepository.save(member);
+
+        em.clear();
+    }
+
+    @Disabled
     @Test
-    void insert(){
+    void insert() throws Exception {
         // given
         memberRepository.save(Member.builder()
                 .name("김철수")
-                .email("chulsu@naver.com")
+                .email(new Email("chulsu@naver.com"))
                 .password("1234")
                 .build());
 
@@ -28,6 +63,21 @@ class MemberTest {
 
         // then
         assertThat(member.getName()).isEqualTo("김철수");
-        assertThat(member.getEmail()).isEqualTo("chulsu@naver.com");
+        assertThat(member.getEmail().getValue()).isEqualTo("chulsu@naver.com");
+    }
+
+    @Test
+    void memberInsertArticle() throws Exception {
+        // when
+        List<Member> all = memberRepository.findAll();
+        Member dbMember = all.get(0);
+
+        dbMember.getPosts().clear();
+
+        List<Posts> postsList = postsRepository.findAll();
+
+        // then
+        assertThat(dbMember.getPosts()).isEmpty();
+        assertThat(postsList.size()).isEqualTo(0);
     }
 }
