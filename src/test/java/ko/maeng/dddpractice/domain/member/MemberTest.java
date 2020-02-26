@@ -33,7 +33,7 @@ class MemberTest {
         List<Tags> tags = asList(
                 Tags.builder().name("TDD").build(),
                 Tags.builder().name("JAVA").build()
-                );
+        );
 
         List<Posts> posts = asList(
                 Posts.builder().title("TDD").description("TDD의 중요성")
@@ -50,8 +50,6 @@ class MemberTest {
                 .password("1234")
                 .posts(posts)
                 .build();
-
-        //member.setPosts(posts);
 
         memberRepository.save(member);
 
