@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,13 +32,27 @@ public class Posts extends BaseTimeEntity {
     private String title;
     private String description;
 
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tags> tags = new ArrayList<>();
+
     @Builder
-    public Posts(Long id, Member member, Category category, String title, String description) {
+    public Posts(Long id, Member member, Category category, String title, String description, List<Tags> tags) {
         this.id = id;
         this.member = member;
         this.category = category;
         this.title = title;
         this.description = description;
+        this.tags = setTags(tags);
+    }
+
+    public List<Tags> setTags(List<Tags> tags) {
+        this.tags = tags;
+        if(this.tags != null && this.tags.size() > 0) {
+            for(Tags tag : tags) {
+                tag.setPosts(this);
+            }
+        }
+        return tags;
     }
 
     public void setMember(Member member) {
@@ -44,6 +60,5 @@ public class Posts extends BaseTimeEntity {
             this.member.getPosts().remove(this);
         }
         this.member = member;
-        //member.getPosts().add(this);
     }
 }

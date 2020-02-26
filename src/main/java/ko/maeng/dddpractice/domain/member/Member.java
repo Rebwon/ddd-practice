@@ -35,15 +35,16 @@ public class Member extends BaseTimeEntity {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.posts = posts;
+        this.posts = setPosts(posts);
     }
 
-    public void setPosts(List<Posts> posts) {
+    public List<Posts> setPosts(List<Posts> posts) {
         this.posts = posts;
         if(this.posts != null && this.posts.size() > 0) {
             for(Posts each : posts) {
                 each.setMember(this);
             }
         }
+        return posts;
     }
 }
