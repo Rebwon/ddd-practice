@@ -38,7 +38,7 @@ public class BasicTest {
         memberRepository.save(member);
 
         // when
-        List<Member> result = memberRepositorySupport.findByName("rebwon");
+        List<Member> result = memberRepository.findByName("rebwon");
 
         // then
         assertThat(result.size()).isEqualTo(1);
