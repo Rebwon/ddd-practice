@@ -1,6 +1,5 @@
 package ko.maeng.dddpractice.domain.member;
 
-import ko.maeng.dddpractice.web.dto.PostsCategory;
 import ko.maeng.dddpractice.web.dto.PostsCount;
 
 import java.util.List;

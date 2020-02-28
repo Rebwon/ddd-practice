@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,5 +33,11 @@ public class Tags {
             this.posts.getTags().remove(this);
         }
         this.posts = posts;
+    }
+
+    public void update(List<Tags> updateTags) {
+        for(Tags updateTag : updateTags) {
+            this.name = updateTag.getName();
+        }
     }
 }

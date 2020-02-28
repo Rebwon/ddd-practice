@@ -6,6 +6,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import ko.maeng.dddpractice.domain.article.Posts;
 import ko.maeng.dddpractice.web.dto.PostsCategory;
 import ko.maeng.dddpractice.web.dto.PostsCount;
 import lombok.RequiredArgsConstructor;
