@@ -21,4 +21,8 @@ public class Product extends BaseTimeEntity {
     private String informationJson;
     private String imageJson;
     private String thumbnailJson;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private ProductStatus productStatus;
 }
