@@ -1,12 +1,14 @@
 package ko.maeng.dddpractice.domain.article;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ko.maeng.dddpractice.domain.board.Board;
 import ko.maeng.dddpractice.domain.common.BaseTimeEntity;
 import ko.maeng.dddpractice.domain.member.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Posts extends BaseTimeEntity {
     @Id
@@ -31,6 +34,9 @@ public class Posts extends BaseTimeEntity {
 
     private String title;
     private String description;
+
+    @ManyToOne
+    private Board board;
 
     @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tags> tags = new ArrayList<>();
