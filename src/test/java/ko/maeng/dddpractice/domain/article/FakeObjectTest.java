@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import ko.maeng.dddpractice.domain.board.Board;
@@ -55,6 +54,6 @@ public class FakeObjectTest {
 
 		Posts dbPosts = postsRepository.findById(1l).get();
 
-		assertThat(dbPosts.getBoard()).isNotNull();
+		assertThat(dbPosts.getBoard().getName()).isEqualTo("Fake Object");
 	}
 }

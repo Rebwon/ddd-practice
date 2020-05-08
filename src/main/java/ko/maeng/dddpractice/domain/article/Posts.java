@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Posts extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,5 +66,9 @@ public class Posts extends BaseTimeEntity {
             this.member.getPosts().remove(this);
         }
         this.member = member;
+    }
+
+    public void addBoard(Board board) {
+
     }
 }
